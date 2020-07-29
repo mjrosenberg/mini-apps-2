@@ -1,5 +1,14 @@
+#title{
+  margin-left: 5px;
+  font-size: x-large;
+  color: navy;
+}
+#app{
+  margin-left: 5px;
+}
 .event{
   border: 1px solid black;
-  width: 400px;
-  margin: 2px;
+  width: 1000px;
+  margin: 5px;
+  padding: 3px;
 }

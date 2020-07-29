@@ -1,9 +1,12 @@
 const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: './client/app.jsx',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    // chunkFilename: '[id].js',
+    // publicPath: ''
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -18,4 +21,9 @@ module.exports = {
         },
     ]
   },
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //     template: './public/index.html'
+  //   }),
+  // ]
 };

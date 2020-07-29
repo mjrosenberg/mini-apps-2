@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 class App extends React.Component{
-  constructor(){
+  constructor(props){
     super(props);
     this.state = {
 
@@ -18,4 +18,4 @@ class App extends React.Component{
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDom.render(<App />, document.getElementById('app'));

@@ -76,7 +76,7 @@ class App extends React.Component{
       <button id='searchButton' onClick={this.search}>Search</button><br></br>
       <div id='results'>{this.state.resultsText} Results</div>
       {this.state.events.map((event) => {
-        console.log('event is', event);
+        // console.log('event is', event);
         return(
           // <div> Event Here</div>
           <Event event={event}/>

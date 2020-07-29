@@ -78,7 +78,7 @@ class App extends React.Component{
     fetch(url)
     .then(response => response.json())
     .then((data) => {
-      console.log('data from 2nd query is', data);
+      // console.log('data from 2nd query is', data);
       this.setState({
         events: data,
         page: 1,

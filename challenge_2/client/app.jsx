@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import PriceChart from './components/chart.jsx';
+
 
 class App extends React.Component{
   constructor(props){
@@ -37,8 +39,8 @@ class App extends React.Component{
     if (this.state.hasData) {
       return(
         <div id='mainWrapper'>
-          Hello World
-          {/* {this.state.data} */}
+          <PriceChart data={this.state.data} />
+          <div id='disclaimer'>{this.state.disclaimer}</div>
         </div>
       );
     } else {

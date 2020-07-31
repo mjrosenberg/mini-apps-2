@@ -3,21 +3,15 @@ import Chart from 'chart.js';
 import {Line} from 'react-chartjs-2';
 
 const PriceChart = (props) => {
-  // console.log('props are', props);
   let newData = [];
   let labels = [];
   let mangleData = () => {
     for (let key in props.data){
-      // newData.push({
-      //   'date': key,
-      //   'price': props.data[key]
-      // });
       labels.push(key);
       newData.push(props.data[key]);
     }
   }
   mangleData();
-  // console.log('new data is', newData, 'labels are', labels);
   let state = {
     labels: labels,
     datasets: [
@@ -32,7 +26,6 @@ const PriceChart = (props) => {
       }
     ]
   }
-  // console.log('state');
   return (
     <div id='lineChart'>
         <Line

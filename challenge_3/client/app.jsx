@@ -32,27 +32,31 @@ submitScore(e) {
     let throwScore = document.getElementById('throw').value;
     document.getElementById('throw').value = 0;
     console.log('throw score is', throwScore);
-    if (this.state.double){
-      this.setState({
-        totScore: this.state.totScore + parseInt(throwScore)
-      }, () => {
-        console.log('updated');
-        document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore;
-        // document.getElementById(`totScore${this.state.frameNum - 1}`).innerHTML = this.state.totScore;
-      });
-    }
+
     if (this.state.frameNum < 10){
       if (this.state.currThrow === 1){
         if (throwScore < 10) {
-          console.log('throw score is', throwScore);
           document.getElementById(`firstThrow${this.state.frameNum}`).innerHTML = throwScore;
           if (this.state.spare === false){
-            this.setState({
-              currThrow: 2,
-              frameScore: throwScore,
-              double: false,
-              // strike: false,
-            });
+            if (this.state.double){
+              this.setState({
+                totScore: this.state.totScore + 10 + parseInt(throwScore),
+                currThrow: 2,
+                frameScore: throwScore,
+                double: false,
+              }, () => {
+                console.log('updated');
+                document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore;
+                // document.getElementById(`totScore${this.state.frameNum - 1}`).innerHTML = this.state.totScore;
+              });
+            } else {
+              this.setState({
+                currThrow: 2,
+                frameScore: throwScore,
+                double: false,
+                // strike: false,
+              });
+            }
           } else {
             //the turn before was a spare
             this.setState({
@@ -68,16 +72,36 @@ submitScore(e) {
           }
         } else {
           //strike on the first throw
-          if (this.state.strike){
-            this.state.double = true;
-          }
           document.getElementById(`firstThrow${this.state.frameNum}`).innerHTML = 'X';
-          this.setState({
-            currThrow: 1,
-            frameNum: this.state.frameNum + 1,
-            totScore: parseInt(this.state.totScore) + 10,
-            strike: true,
-          });
+          if (this.state.strike){
+            this.setState({
+              currThrow: 1,
+              frameNum: this.state.frameNum + 1,
+              totScore: parseInt(this.state.totScore) + 10,
+              strike: true,
+              double: true
+            });
+
+          } else if (this.state.spare){
+            this.setState({
+              currThrow: 1,
+              frameNum: this.state.frameNum + 1,
+              totScore: parseInt(this.state.totScore) + 10,
+              strike: true,
+              double: false,
+              spare: false
+            } () => {
+              document.getElementById(`totScore${this.state.frameNum - 1}`).innerHTML = this.state.totScore;
+            });
+          } else {
+            this.setState({
+              currThrow: 1,
+              frameNum: this.state.frameNum + 1,
+              totScore: parseInt(this.state.totScore) + 10,
+              strike: true,
+              double: false
+            });
+          }
         }
       } else {
         if (!this.state.strike){

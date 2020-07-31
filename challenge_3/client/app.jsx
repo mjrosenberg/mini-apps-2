@@ -185,6 +185,7 @@ submitScore(e) {
               currThrow: 3,
               totScore: this.state.totScore + totFrameScore,
               spare: false,
+              frameScore: 0
             });
           } else{
             document.getElementById(`secondThrow${this.state.frameNum}`).innerHTML = '\\';
@@ -192,6 +193,7 @@ submitScore(e) {
               currThrow: 3,
               totScore: this.state.totScore + 10,
               spare: true,
+              frameScore: 0
             });
           }
         } else {
@@ -207,6 +209,7 @@ submitScore(e) {
               totScore: parseInt(this.state.totScore) + parseInt(prevFrameScore) + parseInt(prevFrameScore),
               strike: false,
               spare: false,
+              frameScore: 0
               //update the total score to add 10 after the second frame and then just add the extra on this frame and append it to the last frame's score
             });
           } else{
@@ -217,11 +220,17 @@ submitScore(e) {
               totScore: parseInt(this.state.totScore) + parseInt(prevFrameScore) + parseInt(prevFrameScore),
               strike: false,
               spare: true,
+              frameScore: 0
               //update the total score to add 10 after the second frame and then just add the extra on this frame and append it to the last frame's score
             });
           }
         }
       } else {
+        if (throwScore < 10){
+          document.getElementById(`thirdThrow${this.state.frameNum}`).innerHTML = throwScore;
+        } else {
+          document.getElementById(`thirdThrow${this.state.frameNum}`).innerHTML = 'X';
+        }
         this.setState({
           frameNum: 11,
           totScore: this.state.totScore + parseInt(throwScore),
@@ -232,9 +241,9 @@ submitScore(e) {
       }
       }
     }
-  }
 
-  render(){
+
+  render() {
     return(
       <div id='mainWrapper'>
         <label for='throw'>Input Score for Frame {this.state.frameNum} Throw {this.state.currThrow}</label>

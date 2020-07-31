@@ -75,20 +75,48 @@ submitScore(e) {
           document.getElementById(`firstThrow${this.state.frameNum}`).innerHTML = 'X';
           if (this.state.strike){
             console.log('double strike')
+            if (this.state.frameNum < 3){
+              this.setState({
+                currThrow: 1,
+                frameNum: this.state.frameNum + 1,
+                totScore: parseInt(this.state.totScore) + 30,
+                strike: true,
+                double: true
+              });
+              return;
+            }
+            if (this.state.frameNum === 10){
+              this.setState({
+                currThrow: 2,
+                totScore: parseInt(this.state.totScore) + 30,
+                strike: true,
+                double: true
+              }, () => document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore);
+              return;
+            }
+            this.setState({
+              currThrow: 1,
+              frameNum: this.state.frameNum + 1,
+              totScore: parseInt(this.state.totScore) + 30,
+              strike: true,
+              double: true
+            }, () => document.getElementById(`totScore${this.state.frameNum - 3}`).innerHTML = this.state.totScore);
+
+          } else if (this.state.spare){
+            console.log('strike after spare');
+            if (this.state.frameNum === 10){
+              this.setState({
+                currThrow: 2,
+                totScore: parseInt(this.state.totScore) + 20,
+                strike: true,
+                double: true
+              }, () => document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore);
+              return;
+            }
             this.setState({
               currThrow: 1,
               frameNum: this.state.frameNum + 1,
               totScore: parseInt(this.state.totScore) + 20,
-              strike: true,
-              double: true
-            }, () => document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore);
-
-          } else if (this.state.spare){
-            console.log('strike after spare');
-            this.setState({
-              currThrow: 1,
-              frameNum: this.state.frameNum + 1,
-              totScore: parseInt(this.state.totScore) + 10,
               strike: true,
               double: false,
               spare: false
@@ -97,6 +125,15 @@ submitScore(e) {
             });
           } else {
             console.log('strike after nothing')
+            if (this.state.frameNum === 10){
+              this.setState({
+                currThrow: 2,
+                totScore: parseInt(this.state.totScore) + 20,
+                strike: true,
+                double: true
+              }, () => document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore);
+              return;
+            }
             this.setState({
               currThrow: 1,
               frameNum: this.state.frameNum + 1,

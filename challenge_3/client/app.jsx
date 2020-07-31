@@ -33,7 +33,7 @@ submitScore(e) {
     document.getElementById('throw').value = 0;
     console.log('throw score is', throwScore);
 
-    if (this.state.frameNum < 10){
+    if (this.state.frameNum < 10 && this.state.currThrow < 3){
       if (this.state.currThrow === 1){
         if (throwScore < 10) {
           document.getElementById(`firstThrow${this.state.frameNum}`).innerHTML = throwScore;
@@ -74,15 +74,17 @@ submitScore(e) {
           //strike on the first throw
           document.getElementById(`firstThrow${this.state.frameNum}`).innerHTML = 'X';
           if (this.state.strike){
+            console.log('double strike')
             this.setState({
               currThrow: 1,
               frameNum: this.state.frameNum + 1,
-              totScore: parseInt(this.state.totScore) + 10,
+              totScore: parseInt(this.state.totScore) + 20,
               strike: true,
               double: true
-            });
+            }, () => document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore);
 
           } else if (this.state.spare){
+            console.log('strike after spare');
             this.setState({
               currThrow: 1,
               frameNum: this.state.frameNum + 1,
@@ -90,10 +92,11 @@ submitScore(e) {
               strike: true,
               double: false,
               spare: false
-            } () => {
-              document.getElementById(`totScore${this.state.frameNum - 1}`).innerHTML = this.state.totScore;
+            }, () => {
+              document.getElementById(`totScore${this.state.frameNum - 2}`).innerHTML = this.state.totScore;
             });
           } else {
+            console.log('strike after nothing')
             this.setState({
               currThrow: 1,
               frameNum: this.state.frameNum + 1,
@@ -152,7 +155,7 @@ submitScore(e) {
             });
           } else{
             document.getElementById(`secondThrow${this.state.frameNum}`).innerHTML = '\\';
-            let prevFrameScore = parseInt(this.state.frameScore) + parseInt(throwScore);
+            let prevFrameScore = parseInt(this.state.frameScore) + parseInt(throwScore) + 10;
             this.setState({
               currThrow: 1,
               frameScore: 0,
@@ -171,6 +174,7 @@ submitScore(e) {
       }
     } else {
       //implement logic for having a third throw if a spare or strike on the tenth
+
     }
   }
 
